@@ -3,9 +3,33 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AA62D1B8-D465-415D-BE2E-BB60C0EA1375}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Integration.Tests", "DataAccess.Integration.Tests\DataAccess.Integration.Tests.csproj", "{F395731E-563E-48FA-967F-6D2B62A286D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{6DEA9C15-A19C-4EB0-9220-E58CCBA38E04}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F395731E-563E-48FA-967F-6D2B62A286D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F395731E-563E-48FA-967F-6D2B62A286D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F395731E-563E-48FA-967F-6D2B62A286D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F395731E-563E-48FA-967F-6D2B62A286D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DEA9C15-A19C-4EB0-9220-E58CCBA38E04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DEA9C15-A19C-4EB0-9220-E58CCBA38E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DEA9C15-A19C-4EB0-9220-E58CCBA38E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DEA9C15-A19C-4EB0-9220-E58CCBA38E04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F395731E-563E-48FA-967F-6D2B62A286D3} = {AA62D1B8-D465-415D-BE2E-BB60C0EA1375}
+		{6DEA9C15-A19C-4EB0-9220-E58CCBA38E04} = {AA62D1B8-D465-415D-BE2E-BB60C0EA1375}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {413D037E-AC2B-4259-A429-1D7C251640DD}
