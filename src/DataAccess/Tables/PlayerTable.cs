@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataAccess
+﻿namespace DataAccess.Tables
 {
     public class PlayerTable
     {
+        public int Id { get; set; }
+
+        public int PersonId { get; set; }
+
+        public bool IsRightHandedBackhand { get; set; }
+
+        public bool IsTwoHandedBackhand { get; set; }
+
+        public int CoachId { get; set; }
     }
 }

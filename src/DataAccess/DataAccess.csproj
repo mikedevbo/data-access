@@ -44,8 +44,9 @@
     <Compile Include="Ado.cs" />
     <Compile Include="EF.cs" />
     <Compile Include="EntLib.cs" />
-    <Compile Include="PlayerStateView.cs" />
-    <Compile Include="PlayerTable.cs" />
+    <Compile Include="Tables\PersonTable.cs" />
+    <Compile Include="Views\PlayerBaseInfoView.cs" />
+    <Compile Include="Tables\PlayerTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleData.cs" />
   </ItemGroup>
