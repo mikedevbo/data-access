@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,10 @@ namespace DataAccess
 {
     public class Ado
     {
-        public PlayerStateView GetPlayerTournamentsActivity(int playerId)
+        public PlayerBaseInfoView GetPlayerTournamentsActivity(int playerId)
         {
             //coś jak podsumowanie na początku mecznów -> ile razy zagrał, ile wygrał, ile przegrał zarobki, ...
-            return new PlayerStateView();
+            return new PlayerBaseInfoView();
         }
 
         public int RegisterPlayerInTournament(int playerId, int tournamentId, int year)
