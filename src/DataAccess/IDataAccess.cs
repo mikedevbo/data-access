@@ -6,10 +6,10 @@ namespace DataAccess
 {
     public interface IDataAccess
     {
-        Task<PlayerBaseInfoView> GetPlayerBaseInfo(int playerId);
+        Task<PlayersBaseInfoView> GetPlayerBaseInfo(int playerId);
 
-        int AddPlayer(PersonTable person, PlayerTable player);
+        Task AddPlayer(int personId, bool IsRightHanded, bool IsTwoHandedBackhand);
 
-        void SetPlayerCoach(int coachId);
+        Task SetPlayerCoach(int playerId, int newCoachId, int? previousCoachId);
     }
 }

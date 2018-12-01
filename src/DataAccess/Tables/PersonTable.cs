@@ -1,7 +1,12 @@
-﻿namespace DataAccess.Tables
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DataAccess.Tables
 {
+    [Table("Person")]
     public class PersonTable
     {
+        [Key]
         public int Id { get; set; }
 
         public string FirstName { get; set; }

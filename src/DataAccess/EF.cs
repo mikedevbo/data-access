@@ -11,27 +11,44 @@ namespace DataAccess
         {
         }
 
-        public DbSet<PlayerBaseInfoView> PlayerBaseInfoView { get; set; }
+        public DbSet<PersonTable> PersonTable { get; set; }
+
+        public DbSet<PlayerTable> PlayerTable { get; set; }
+
+        public DbSet<PlayersBaseInfoView> PlayersBaseInfoView { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Disable initializer
-            Database.SetInitializer<DbContext>(null);
+            Database.SetInitializer<EF>(null);
         }
 
-        public int AddPlayer(PersonTable person, PlayerTable player)
+        public Task AddPlayer(int personId, bool IsRightHanded, bool IsTwoHandedBackhand)
         {
-            throw new System.NotImplementedException();
+            var player = new PlayerTable();
+
+            player.Id = personId;
+            player.IsRightHanded = IsRightHanded;
+            player.IsTwoHandedBackhand = IsTwoHandedBackhand;
+
+            this.PlayerTable.Add(player);
+            return this.SaveChangesAsync();
         }
 
-        public Task<PlayerBaseInfoView> GetPlayerBaseInfo(int playerId)
+        public Task<PlayersBaseInfoView> GetPlayerBaseInfo(int playerId)
         {
-            return this.PlayerBaseInfoView.FirstOrDefaultAsync(p => p.Id == playerId);
+            return this.PlayersBaseInfoView.FirstOrDefaultAsync(p => p.Id == playerId);
         }
 
-        public void SetPlayerCoach(int coachId)
+        public Task SetPlayerCoach(int playerId, int newCoachId, int? previousCoachId)
         {
-            throw new System.NotImplementedException();
+            var player = new PlayerTable { Id = playerId };
+            this.PlayerTable.Attach(player);
+
+            this.Entry(player).Property(p => p.CoachId).OriginalValue = previousCoachId;
+            player.CoachId = newCoachId;
+
+            return this.SaveChangesAsync();
         }
     }
 }

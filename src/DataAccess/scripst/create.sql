@@ -18,11 +18,10 @@ CREATE TABLE [dbo].[Person](
 GO
 
 CREATE TABLE [dbo].[Player](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[PersonId] [int] NOT NULL,
-	[IsRightHandedBackhand] [bit] NOT NULL,
+	[Id] [int] NOT NULL,
+	[IsRightHanded] [bit] NOT NULL,
 	[IsTwoHandedBackhand] [bit] NOT NULL,
-	[CoachId] [int] NOT NULL,
+	[CoachId] [int] NULL,
  CONSTRAINT [PK_Player] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -31,17 +30,17 @@ CREATE TABLE [dbo].[Player](
 GO
 
 ALTER TABLE [dbo].[Player]  WITH NOCHECK ADD  CONSTRAINT [FK_Player_Person_CoachId] FOREIGN KEY([CoachId])
-REFERENCES [dbo].[Player] ([Id])
+REFERENCES [dbo].[Person] ([Id])
 GO
 
 ALTER TABLE [dbo].[Player] CHECK CONSTRAINT [FK_Player_Person_CoachId]
 GO
 
-ALTER TABLE [dbo].[Player]  WITH NOCHECK ADD  CONSTRAINT [FK_Player_Person_PersonId] FOREIGN KEY([PersonId])
+ALTER TABLE [dbo].[Player]  WITH NOCHECK ADD  CONSTRAINT [FK_Player_Person_Id] FOREIGN KEY([Id])
 REFERENCES [dbo].[Person] ([Id])
 GO
 
-ALTER TABLE [dbo].[Player] CHECK CONSTRAINT [FK_Player_Person_PersonId]
+ALTER TABLE [dbo].[Player] CHECK CONSTRAINT [FK_Player_Person_Id]
 GO
 
 create view PlayersBaseInfo
@@ -57,11 +56,16 @@ as
 		, person.BirthplaceCity
 		, person.[Weight]
 		, person.Height
-		, player.IsRightHandedBackhand
+		, player.IsRightHanded
 		, player.IsTwoHandedBackhand
 		, coach.Id			as CoachId
 		, coach.FirstName	as CoachFirstName
 		, coach.LastName	as CoachLastName
 	from dbo.Player player
-		inner join dbo.Person person on player.PersonId = person.Id
-		inner join dbo.Person coach on player.CoachId = coach.Id
+		inner join dbo.Person person on player.Id = person.Id
+		left join dbo.Person coach on player.CoachId = coach.Id
+
+insert into [dbo].[Person]
+	select 'Iron', 'Man', '2018', '12', '01', 'Poland', 'Warsaw', '85', '185'
+	union
+	select 'Spider', 'Man', '2018', '12', '01', 'Poland', 'Warsaw', '85', '185'

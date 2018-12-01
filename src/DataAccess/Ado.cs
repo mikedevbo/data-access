@@ -9,10 +9,10 @@ namespace DataAccess
 {
     public class Ado
     {
-        public PlayerBaseInfoView GetPlayerTournamentsActivity(int playerId)
+        public PlayersBaseInfoView GetPlayerTournamentsActivity(int playerId)
         {
             //coś jak podsumowanie na początku mecznów -> ile razy zagrał, ile wygrał, ile przegrał zarobki, ...
-            return new PlayerBaseInfoView();
+            return new PlayersBaseInfoView();
         }
 
         public int RegisterPlayerInTournament(int playerId, int tournamentId, int year)
