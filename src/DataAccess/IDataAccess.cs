@@ -1,15 +1,13 @@
-﻿using DataAccess.Tables;
-using DataAccess.Views;
-using System.Threading.Tasks;
+﻿using DataAccess.Views;
 
 namespace DataAccess
 {
     public interface IDataAccess
     {
-        Task<PlayersBaseInfoView> GetPlayerBaseInfo(int playerId);
+        PlayersBaseInfoView GetPlayerBaseInfo(int playerId);
 
-        Task AddPlayer(int personId, bool IsRightHanded, bool IsTwoHandedBackhand);
+        void AddPlayer(int personId, bool IsRightHanded, bool IsTwoHandedBackhand);
 
-        Task SetPlayerCoach(int playerId, int newCoachId, int? previousCoachId);
+        void SetPlayerCoach(int playerId, int? newCoachId, int? previousCoachId);
     }
 }

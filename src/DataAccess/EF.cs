@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class EF : DbContext, IDataAccess
+    public class EF : DbContext, IDataAccessAsync
     {
-        public EF() : base("name=Players")
+        public EF() : base(Helper.ConnectionName)
         {
         }
 
@@ -25,11 +25,12 @@ namespace DataAccess
 
         public Task AddPlayer(int personId, bool IsRightHanded, bool IsTwoHandedBackhand)
         {
-            var player = new PlayerTable();
-
-            player.Id = personId;
-            player.IsRightHanded = IsRightHanded;
-            player.IsTwoHandedBackhand = IsTwoHandedBackhand;
+            var player = new PlayerTable
+            {
+                Id = personId,
+                IsRightHanded = IsRightHanded,
+                IsTwoHandedBackhand = IsTwoHandedBackhand
+            };
 
             this.PlayerTable.Add(player);
             return this.SaveChangesAsync();
@@ -40,7 +41,7 @@ namespace DataAccess
             return this.PlayersBaseInfoView.FirstOrDefaultAsync(p => p.Id == playerId);
         }
 
-        public Task SetPlayerCoach(int playerId, int newCoachId, int? previousCoachId)
+        public Task SetPlayerCoach(int playerId, int? newCoachId, int? previousCoachId)
         {
             var player = new PlayerTable { Id = playerId };
             this.PlayerTable.Attach(player);

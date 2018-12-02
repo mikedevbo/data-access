@@ -69,3 +69,5 @@ insert into [dbo].[Person]
 	select 'Iron', 'Man', '2018', '12', '01', 'Poland', 'Warsaw', '85', '185'
 	union
 	select 'Spider', 'Man', '2018', '12', '01', 'Poland', 'Warsaw', '85', '185'
+	union
+	select 'Bat', 'Man', '2018', '12', '01', 'Poland', 'Warsaw', '85', '185'

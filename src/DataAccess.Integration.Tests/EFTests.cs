@@ -1,5 +1,7 @@
 ﻿using DataAccess.Views;
 using NUnit.Framework;
+using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
@@ -11,19 +13,25 @@ namespace DataAccess.Integration.Tests
         private readonly JavaScriptSerializer serializer = new JavaScriptSerializer();
 
         [Test]
-        public async Task AddPlayer_NewPalyer_NewPlayerId()
+        public async Task AddPlayer_NewPalyer_PlayerAdded()
         {
             // Arrange
             const int personId = 1;
+            PlayersBaseInfoView result = null;
 
             // Act
-            using (var dataAccess = this.GetEF())
+            using (var dataAccess = this.GetDataAccess())
             {
                 await dataAccess.AddPlayer(personId, true, true).ConfigureAwait(false);
             }
 
             // Assert
-            ////No Exception
+            using (var dataAccess = this.GetDataAccess())
+            {
+                result = await dataAccess.GetPlayerBaseInfo(personId).ConfigureAwait(false);
+            }
+
+            Assert.That(result, Is.Not.Null);
         }
 
         [Test]
@@ -34,7 +42,7 @@ namespace DataAccess.Integration.Tests
             PlayersBaseInfoView result = null;
 
             // Act
-            using (var dataAccess = this.GetEF())
+            using (var dataAccess = this.GetDataAccess())
             {
                 result = await dataAccess.GetPlayerBaseInfo(playerId).ConfigureAwait(false);
             }
@@ -44,25 +52,54 @@ namespace DataAccess.Integration.Tests
             System.Console.WriteLine(this.serializer.Serialize(result));
         }
 
-        [Test]
-        public async Task SetPlayerCoach_NewPalyer_NewPlayerId()
+        [TestCase(2, null)]
+        [TestCase(3, 2)]
+        [TestCase(null, 3)]
+        public async Task SetPlayerCoach_NewPalyer_CoachSet(int? coachId, int? previousCoachId)
         {
             // Arrange
             const int playerId = 1;
-            const int coachId = 1;
-            int? previousCoachId = 2;
+            PlayersBaseInfoView result = null;
 
             // Act
-            using (var dataAccess = this.GetEF())
+            using (var dataAccess = this.GetDataAccess())
             {
                 await dataAccess.SetPlayerCoach(playerId, coachId, previousCoachId).ConfigureAwait(false);
             }
 
             // Assert
-            ////No Exception
+            using (var dataAccess = this.GetDataAccess())
+            {
+                result = await dataAccess.GetPlayerBaseInfo(playerId).ConfigureAwait(false);
+            }
+
+            Assert.That(result.CoachId, Is.EqualTo(coachId));
         }
 
-        private EF GetEF()
+        [Test]
+        public Task SetPlayerCoach_OldState_DbUpdateConcurrencyException()
+        {
+            // Arrange
+            const int playerId = 1;
+            int? coachId = 1000;
+            int? previousCoachId = 999;
+
+            // Act
+            AsyncTestDelegate result = async () =>
+            {
+                using (var dataAccess = this.GetDataAccess())
+                {
+                    await dataAccess.SetPlayerCoach(playerId, coachId, previousCoachId).ConfigureAwait(false);
+                }
+            };
+
+            // Assert
+            Assert.ThrowsAsync<DbUpdateConcurrencyException>(result);
+
+            return Task.CompletedTask;
+        }
+
+        private EF GetDataAccess()
         {
             return new EF();
         }
