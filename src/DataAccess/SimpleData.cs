@@ -10,13 +10,13 @@ namespace DataAccess
 {
     public class SimpleData : IDataAccess
     {
-        public void AddPlayer(int personId, bool IsRightHanded, bool IsTwoHandedBackhand)
+        public void AddPlayer(int personId, bool isRightHanded, bool isTwoHandedBackhand)
         {
             var player = new PlayerTable
             {
                 Id = personId,
-                IsRightHanded = IsRightHanded,
-                IsTwoHandedBackhand = IsTwoHandedBackhand
+                IsRightHanded = isRightHanded,
+                IsTwoHandedBackhand = isTwoHandedBackhand
             };
 
             dynamic db = this.GetDatabase();

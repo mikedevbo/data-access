@@ -1,17 +1,12 @@
-﻿using DataAccess.Views;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
 namespace DataAccess.Integration.Tests
 {
     [TestFixture]
-    public class SimpleDataTests
+    public class DapperTests
     {
         private readonly JavaScriptSerializer serializer = new JavaScriptSerializer();
 
@@ -71,7 +66,7 @@ namespace DataAccess.Integration.Tests
             int? coachId = 1000;
             int? previousCoachId = 999;
             var dataAccess = this.GetDataAccess();
-        
+
             // Act
 
             TestDelegate result = () => dataAccess.SetPlayerCoach(playerId, coachId, previousCoachId);
@@ -80,9 +75,9 @@ namespace DataAccess.Integration.Tests
             Assert.Throws<DbUpdateConcurrencyException>(result);
         }
 
-        private SimpleData GetDataAccess()
+        private Dapper GetDataAccess()
         {
-            return new SimpleData();
+            return new Dapper();
         }
     }
 }

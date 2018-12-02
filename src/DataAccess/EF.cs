@@ -23,13 +23,13 @@ namespace DataAccess
             Database.SetInitializer<EF>(null);
         }
 
-        public Task AddPlayer(int personId, bool IsRightHanded, bool IsTwoHandedBackhand)
+        public Task AddPlayer(int personId, bool isRightHanded, bool isTwoHandedBackhand)
         {
             var player = new PlayerTable
             {
                 Id = personId,
-                IsRightHanded = IsRightHanded,
-                IsTwoHandedBackhand = IsTwoHandedBackhand
+                IsRightHanded = isRightHanded,
+                IsTwoHandedBackhand = isTwoHandedBackhand
             };
 
             this.PlayerTable.Add(player);

@@ -6,7 +6,7 @@ namespace DataAccess
     {
         PlayersBaseInfoView GetPlayerBaseInfo(int playerId);
 
-        void AddPlayer(int personId, bool IsRightHanded, bool IsTwoHandedBackhand);
+        void AddPlayer(int personId, bool isRightHanded, bool isTwoHandedBackhand);
 
         void SetPlayerCoach(int playerId, int? newCoachId, int? previousCoachId);
     }
