@@ -1,12 +1,11 @@
-﻿using DataAccess.Views;
-using NUnit.Framework;
-using System.Data;
-using System.Data.Entity.Infrastructure;
-using System.Threading.Tasks;
-using System.Web.Script.Serialization;
-
-namespace DataAccess.Integration.Tests
+﻿namespace DataAccess.Integration.Tests
 {
+    using System.Data.Entity.Infrastructure;
+    using System.Threading.Tasks;
+    using System.Web.Script.Serialization;
+    using DataAccess.Views;
+    using NUnit.Framework;
+
     [TestFixture]
     public class EntityFrameworkTests
     {

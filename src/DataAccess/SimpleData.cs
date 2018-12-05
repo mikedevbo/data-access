@@ -1,13 +1,10 @@
-﻿using System;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Threading.Tasks;
-using DataAccess.Tables;
-using DataAccess.Views;
-using Simple.Data;
-
-namespace DataAccess
+﻿namespace DataAccess
 {
+    using System.Data.Entity.Infrastructure;
+    using DataAccess.Tables;
+    using DataAccess.Views;
+    using Simple.Data;
+
     public class SimpleData : IDataAccess
     {
         public void AddPlayer(int personId, bool isRightHanded, bool isTwoHandedBackhand)

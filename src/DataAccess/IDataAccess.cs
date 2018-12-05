@@ -1,7 +1,7 @@
-﻿using DataAccess.Views;
-
-namespace DataAccess
+﻿namespace DataAccess
 {
+    using DataAccess.Views;
+
     public interface IDataAccess
     {
         PlayersBaseInfoView GetPlayerBaseInfo(int playerId);

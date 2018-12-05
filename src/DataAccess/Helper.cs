@@ -2,6 +2,12 @@
 {
     public static class Helper
     {
-        public static string ConnectionName = @"Players";
+        public static string ConnectionName
+        {
+            get
+            {
+                return @"Players";
+            }
+        }
     }
 }

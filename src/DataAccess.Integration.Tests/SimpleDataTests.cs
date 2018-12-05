@@ -1,15 +1,10 @@
-﻿using DataAccess.Views;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Script.Serialization;
-
-namespace DataAccess.Integration.Tests
+﻿namespace DataAccess.Integration.Tests
 {
+    using System;
+    using System.Data.Entity.Infrastructure;
+    using System.Web.Script.Serialization;
+    using NUnit.Framework;
+
     [TestFixture]
     public class SimpleDataTests
     {
@@ -45,7 +40,6 @@ namespace DataAccess.Integration.Tests
             Console.WriteLine(this.serializer.Serialize(result));
         }
 
-
         [TestCase(2, null)]
         [TestCase(3, 2)]
         [TestCase(null, 3)]
@@ -71,9 +65,8 @@ namespace DataAccess.Integration.Tests
             int? coachId = 1000;
             int? previousCoachId = 999;
             var dataAccess = this.GetDataAccess();
-        
-            // Act
 
+            // Act
             TestDelegate result = () => dataAccess.SetPlayerCoach(playerId, coachId, previousCoachId);
 
             // Assert

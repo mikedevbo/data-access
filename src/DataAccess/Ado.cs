@@ -1,12 +1,12 @@
-﻿using DataAccess.Views;
-using System;
-using System.Configuration;
-using System.Data;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
-
-namespace DataAccess
+﻿namespace DataAccess
 {
+    using System;
+    using System.Configuration;
+    using System.Data;
+    using System.Data.Entity.Infrastructure;
+    using System.Data.SqlClient;
+    using DataAccess.Views;
+
     public class Ado : IDataAccess
     {
         public void AddPlayer(int personId, bool isRightHanded, bool isTwoHandedBackhand)
@@ -88,7 +88,7 @@ namespace DataAccess
                                 Height = Convert.ToInt32(reader["Height"]),
                                 IsRightHanded = Convert.ToBoolean(reader["IsRightHanded"]),
                                 IsTwoHandedBackhand = Convert.ToBoolean(reader["IsTwoHandedBackhand"]),
-                                CoachId = reader["CoachId"] == DBNull.Value ? new int?() : Convert.ToInt32(reader["CoachId"]),
+                                CoachId = reader["CoachId"] == DBNull.Value ? default(int?) : Convert.ToInt32(reader["CoachId"]),
                                 CoachFirstName = reader["CoachFirstName"] == DBNull.Value ? null : reader["CoachFirstName"].ToString(),
                                 CoachLastName = reader["CoachLastName"] == DBNull.Value ? null : reader["CoachLastName"].ToString(),
                             };

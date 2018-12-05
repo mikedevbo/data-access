@@ -1,13 +1,12 @@
-﻿using System;
-using System.Configuration;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
-using System.Linq;
-using Dapper;
-using DataAccess.Views;
-
-namespace DataAccess
+﻿namespace DataAccess
 {
+    using System.Configuration;
+    using System.Data.Entity.Infrastructure;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using DataAccess.Views;
+    using global::Dapper;
+
     public class Dapper : IDataAccess
     {
         public void AddPlayer(int personId, bool isRightHanded, bool isTwoHandedBackhand)

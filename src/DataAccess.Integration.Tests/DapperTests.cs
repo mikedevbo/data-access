@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using System;
-using System.Data.Entity.Infrastructure;
-using System.Web.Script.Serialization;
-
-namespace DataAccess.Integration.Tests
+﻿namespace DataAccess.Integration.Tests
 {
+    using System;
+    using System.Data.Entity.Infrastructure;
+    using System.Web.Script.Serialization;
+    using NUnit.Framework;
+
     [TestFixture]
     public class DapperTests
     {
@@ -40,7 +40,6 @@ namespace DataAccess.Integration.Tests
             Console.WriteLine(this.serializer.Serialize(result));
         }
 
-
         [TestCase(2, null)]
         [TestCase(3, 2)]
         [TestCase(null, 3)]
@@ -68,7 +67,6 @@ namespace DataAccess.Integration.Tests
             var dataAccess = this.GetDataAccess();
 
             // Act
-
             TestDelegate result = () => dataAccess.SetPlayerCoach(playerId, coachId, previousCoachId);
 
             // Assert

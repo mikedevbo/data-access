@@ -1,13 +1,14 @@
-﻿using DataAccess.Tables;
-using DataAccess.Views;
-using System.Data.Entity;
-using System.Threading.Tasks;
-
-namespace DataAccess
+﻿namespace DataAccess
 {
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using DataAccess.Tables;
+    using DataAccess.Views;
+
     public class EntityFramework : DbContext, IDataAccessAsync
     {
-        public EntityFramework() : base(Helper.ConnectionName)
+        public EntityFramework()
+            : base(Helper.ConnectionName)
         {
         }
 
@@ -16,12 +17,6 @@ namespace DataAccess
         public DbSet<PlayerTable> PlayerTable { get; set; }
 
         public DbSet<PlayersBaseInfoView> PlayersBaseInfoView { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            //Disable initializer
-            Database.SetInitializer<EntityFramework>(null);
-        }
 
         public Task AddPlayer(int personId, bool isRightHanded, bool isTwoHandedBackhand)
         {
@@ -51,6 +46,12 @@ namespace DataAccess
             player.CoachId = newCoachId;
 
             return this.SaveChangesAsync();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            ////Disable initializer
+            Database.SetInitializer<EntityFramework>(null);
         }
     }
 }

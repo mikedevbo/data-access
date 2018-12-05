@@ -1,14 +1,14 @@
-﻿using System;
-using System.Data;
-using System.Data.Common;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
-using System.Linq;
-using DataAccess.Views;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-
-namespace DataAccess
+﻿namespace DataAccess
 {
+    using System;
+    using System.Data;
+    using System.Data.Common;
+    using System.Data.Entity.Infrastructure;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using DataAccess.Views;
+    using Microsoft.Practices.EnterpriseLibrary.Data;
+
     public class EnterpriseLibrary : IDataAccess
     {
         public void AddPlayer(int personId, bool isRightHanded, bool isTwoHandedBackhand)
