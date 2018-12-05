@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoTests.cs" />
     <Compile Include="DapperTests.cs" />
     <Compile Include="EFTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

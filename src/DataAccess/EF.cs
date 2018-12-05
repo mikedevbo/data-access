@@ -33,6 +33,7 @@ namespace DataAccess
             };
 
             this.PlayerTable.Add(player);
+
             return this.SaveChangesAsync();
         }
 

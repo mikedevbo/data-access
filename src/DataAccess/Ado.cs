@@ -1,28 +1,148 @@
 ﻿using DataAccess.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
+using System.Data;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace DataAccess
 {
-    public class Ado
+    public class Ado : IDataAccess
     {
-        public PlayersBaseInfoView GetPlayerTournamentsActivity(int playerId)
+        public void AddPlayer(int personId, bool isRightHanded, bool isTwoHandedBackhand)
         {
-            //coś jak podsumowanie na początku mecznów -> ile razy zagrał, ile wygrał, ile przegrał zarobki, ...
-            return new PlayersBaseInfoView();
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings[Helper.ConnectionName].ConnectionString))
+            {
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+
+                    command.CommandText =
+                        "insert into dbo.Player(id, IsRightHanded, IsTwoHandedBackhand, CoachId) " +
+                        "values(@Id, @IsRightHanded, @IsTwoHandedBackhand, null)";
+
+                    command.Parameters.Add("@Id", SqlDbType.Int, 4).Value = personId;
+                    command.Parameters.Add("@IsRightHanded", SqlDbType.Bit).Value = isRightHanded;
+                    command.Parameters.Add("@IsTwoHandedBackhand", SqlDbType.Bit).Value = isTwoHandedBackhand;
+
+                    connection.Open();
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
-        public int RegisterPlayerInTournament(int playerId, int tournamentId, int year)
+        public PlayersBaseInfoView GetPlayerBaseInfo(int playerId)
         {
-            return 0;
+            PlayersBaseInfoView result = null;
+
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings[Helper.ConnectionName].ConnectionString))
+            {
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+
+                    command.CommandText =
+                        "select " +
+                        "  pbi.id" +
+                        ", pbi.FirstName" +
+                        ", pbi.LastName" +
+                        ", pbi.BirthYear" +
+                        ", pbi.BirthMonth" +
+                        ", pbi.BirthDay" +
+                        ", pbi.BirthplaceCountry" +
+                        ", pbi.BirthplaceCity" +
+                        ", pbi.[Weight]" +
+                        ", pbi.Height" +
+                        ", pbi.IsRightHanded" +
+                        ", pbi.IsTwoHandedBackhand" +
+                        ", pbi.CoachId" +
+                        ", pbi.CoachFirstName" +
+                        ", pbi.CoachLastName " +
+                        "from " +
+                        "  dbo.PlayersBaseInfo pbi " +
+                        "where " +
+                        "  pbi.Id = @Id";
+
+                    command.Parameters.Add("@Id", SqlDbType.Int, 4).Value = playerId;
+
+                    connection.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            result = new PlayersBaseInfoView
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                FirstName = reader["FirstName"].ToString(),
+                                LastName = reader["LastName"].ToString(),
+                                BirthYear = Convert.ToInt32(reader["BirthYear"]),
+                                BirthMonth = Convert.ToInt32(reader["BirthMonth"]),
+                                BirthDay = Convert.ToInt32(reader["BirthDay"]),
+                                BirthplaceCountry = reader["BirthplaceCountry"].ToString(),
+                                BirthplaceCity = reader["BirthplaceCity"].ToString(),
+                                Weight = Convert.ToInt32(reader["Weight"]),
+                                Height = Convert.ToInt32(reader["Height"]),
+                                IsRightHanded = Convert.ToBoolean(reader["IsRightHanded"]),
+                                IsTwoHandedBackhand = Convert.ToBoolean(reader["IsTwoHandedBackhand"]),
+                                CoachId = reader["CoachId"] == DBNull.Value ? new int?() : Convert.ToInt32(reader["CoachId"]),
+                                CoachFirstName = reader["CoachFirstName"] == DBNull.Value ? null : reader["CoachFirstName"].ToString(),
+                                CoachLastName = reader["CoachLastName"] == DBNull.Value ? null : reader["CoachLastName"].ToString(),
+                            };
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
-        public void WithdrawPlayerFromTournament(int playerId, int tournamentId, string reason)
+        public void SetPlayerCoach(int playerId, int? newCoachId, int? previousCoachId)
         {
-            //update with concurrency -> rowVersion
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings[Helper.ConnectionName].ConnectionString))
+            {
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+
+                    command.CommandText =
+                        "update " +
+                        "   dbo.Player " +
+                        "set " +
+                        "   CoachId = @newCoachId " +
+                        "where Id = @Id and " +
+                            string.Format("CoachId {0}", previousCoachId.HasValue ? "= @previousCoachId" : "is null");
+
+                    command.Parameters.Add("@Id", SqlDbType.Int, 4).Value = playerId;
+
+                    if (newCoachId.HasValue)
+                    {
+                        command.Parameters.Add("@newCoachId", SqlDbType.Int, 4).Value = newCoachId;
+                    }
+                    else
+                    {
+                        command.Parameters.Add("@newCoachId", SqlDbType.Int, 4).Value = DBNull.Value;
+                    }
+
+                    if (previousCoachId.HasValue)
+                    {
+                        command.Parameters.Add("@previousCoachId", SqlDbType.Int, 4).Value = previousCoachId.Value;
+                    }
+
+                    connection.Open();
+
+                    var result = command.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        throw new DbUpdateConcurrencyException();
+                    }
+                }
+            }
         }
     }
 }
