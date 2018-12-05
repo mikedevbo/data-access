@@ -6,7 +6,7 @@ using System.Web.Script.Serialization;
 namespace DataAccess.Integration.Tests
 {
     [TestFixture]
-    public class EntiLibTests
+    public class EnterpriseLibraryTests
     {
         private readonly JavaScriptSerializer serializer = new JavaScriptSerializer();
 
@@ -75,9 +75,9 @@ namespace DataAccess.Integration.Tests
             Assert.Throws<DbUpdateConcurrencyException>(result);
         }
 
-        private EntLib GetDataAccess()
+        private EnterpriseLibrary GetDataAccess()
         {
-            return new EntLib();
+            return new EnterpriseLibrary();
         }
     }
 }

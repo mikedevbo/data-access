@@ -69,8 +69,8 @@
   <ItemGroup>
     <Compile Include="Ado.cs" />
     <Compile Include="Dapper.cs" />
-    <Compile Include="EF.cs" />
-    <Compile Include="EntLib.cs" />
+    <Compile Include="EntityFramework.cs" />
+    <Compile Include="EnterpriseLibrary.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="IDataAccess.cs" />
     <Compile Include="IDataAccessAsync.cs" />

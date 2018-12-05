@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class EF : DbContext, IDataAccessAsync
+    public class EntityFramework : DbContext, IDataAccessAsync
     {
-        public EF() : base(Helper.ConnectionName)
+        public EntityFramework() : base(Helper.ConnectionName)
         {
         }
 
@@ -20,7 +20,7 @@ namespace DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Disable initializer
-            Database.SetInitializer<EF>(null);
+            Database.SetInitializer<EntityFramework>(null);
         }
 
         public Task AddPlayer(int personId, bool isRightHanded, bool isTwoHandedBackhand)

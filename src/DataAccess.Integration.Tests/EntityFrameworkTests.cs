@@ -8,7 +8,7 @@ using System.Web.Script.Serialization;
 namespace DataAccess.Integration.Tests
 {
     [TestFixture]
-    public class EFTests
+    public class EntityFrameworkTests
     {
         private readonly JavaScriptSerializer serializer = new JavaScriptSerializer();
 
@@ -99,9 +99,9 @@ namespace DataAccess.Integration.Tests
             return Task.CompletedTask;
         }
 
-        private EF GetDataAccess()
+        private EntityFramework GetDataAccess()
         {
-            return new EF();
+            return new EntityFramework();
         }
     }
 }

@@ -76,8 +76,8 @@
   <ItemGroup>
     <Compile Include="AdoTests.cs" />
     <Compile Include="DapperTests.cs" />
-    <Compile Include="EFTests.cs" />
-    <Compile Include="EntiLibTests.cs" />
+    <Compile Include="EntityFrameworkTests.cs" />
+    <Compile Include="EnterpriseLibraryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleDataTests.cs" />
   </ItemGroup>

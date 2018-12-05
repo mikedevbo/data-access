@@ -9,7 +9,7 @@ using Microsoft.Practices.EnterpriseLibrary.Data;
 
 namespace DataAccess
 {
-    public class EntLib : IDataAccess
+    public class EnterpriseLibrary : IDataAccess
     {
         public void AddPlayer(int personId, bool isRightHanded, bool isTwoHandedBackhand)
         {
