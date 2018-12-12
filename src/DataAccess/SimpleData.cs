@@ -23,7 +23,7 @@
         public PlayersBaseInfoView GetPlayerBaseInfo(int playerId)
         {
             dynamic db = this.GetDatabase();
-            return db.Player.FindAllById(playerId).FirstOrDefault();
+            return db.PlayersBaseInfo.FindAllById(playerId).FirstOrDefault();
         }
 
         public void SetPlayerCoach(int playerId, int? newCoachId, int? previousCoachId)
