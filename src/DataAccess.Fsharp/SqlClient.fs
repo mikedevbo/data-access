@@ -7,7 +7,7 @@
 
     module AddPlayer =
         [<Literal>]
-        let sql = "
+        let private sql = "
             insert into dbo.Player(id, IsRightHanded, IsTwoHandedBackhand, CoachId)
             values(@Id, @IsRightHanded, @IsTwoHandedBackhand, null)
             "
