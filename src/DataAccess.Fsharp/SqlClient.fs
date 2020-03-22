@@ -6,6 +6,7 @@
     let private connectionStringName = "name=Players"
 
     module AddPlayer =
+        
         [<Literal>]
         let private sql = "
             insert into dbo.Player(id, IsRightHanded, IsTwoHandedBackhand, CoachId)
@@ -17,6 +18,7 @@
             ()
 
     module GetPlayerBaseInfo =
+        
         [<Literal>]
         let private sql = "
             select
